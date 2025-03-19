@@ -1,0 +1,21 @@
+{
+	"name": "event-guesser",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"dev:frontend": "cd apps/frontend && npm run dev",
+		"dev:backend": "cd apps/backend && npm run start:dev",
+		"dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"private": true,
+	"workspaces": [
+		"apps/*"
+	],
+	"devDependencies": {
+		"concurrently": "^8.2.0"
+	}
+}
