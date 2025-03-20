@@ -1,16 +1,24 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  Unique,
+} from 'typeorm';
 import { GameEntity } from './games.entity';
+import { EventPictureEntity } from './event-picture.entity';
 
 @Entity()
+@Unique(['eventName'])
 export class EventEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('varchar')
+  @Column('text')
   eventName: string;
 
-  @Column('varchar')
-  pictureUrl: string;
+  @ManyToMany(() => EventPictureEntity, (picture) => picture.events)
+  pictures: EventPictureEntity[];
 
   @ManyToMany(() => GameEntity, (game) => game.questions)
   games: GameEntity[];
