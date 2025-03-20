@@ -6,10 +6,9 @@ import {
   ObjectLiteral,
   Repository,
 } from 'typeorm';
-import { EntityModel } from '../../shared/models/entity.model';
 
 @Injectable()
-export abstract class CollectionService<T extends ObjectLiteral & EntityModel> {
+export abstract class CollectionService<T extends ObjectLiteral> {
   abstract getRepositoryEntityTarget(): Type<T>;
 
   protected readonly entityRepository: Repository<T>;
@@ -43,10 +42,8 @@ export abstract class CollectionService<T extends ObjectLiteral & EntityModel> {
       .catch(() => false);
   }
 
-  findOneById(id: number): Promise<T | null> {
-    return this.entityRepository.findOne({
-      where: { id } as FindOptionsWhere<T>,
-    });
+  findOne(where: FindOptionsWhere<T>): Promise<T | null> {
+    return this.entityRepository.findOne({ where });
   }
 
   findManyByOptions(
