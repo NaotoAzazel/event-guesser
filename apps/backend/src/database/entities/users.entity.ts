@@ -16,6 +16,9 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column('boolean')
+  isAdmin: boolean;
+
   @Column('varchar')
   username: string;
 
