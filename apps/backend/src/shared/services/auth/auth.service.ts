@@ -23,7 +23,9 @@ export class AuthService {
     const user = await this.validateUser(dto);
 
     const payload = {
+      userId: user.id,
       username: user.email,
+      isAdmin: user.isAdmin,
       sub: {
         name: user.username,
       },

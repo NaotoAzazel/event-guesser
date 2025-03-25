@@ -1,4 +1,5 @@
-import { IsInt, Max, Min, ValidateIf } from 'class-validator';
+import { IsInt, Max, Min } from 'class-validator';
+import { MaxDayOfMonth } from '../decorators/max-day-of-month.decoraator';
 
 export class ParseEventsDto {
   @IsInt()
@@ -9,17 +10,6 @@ export class ParseEventsDto {
   @IsInt()
   @Min(1)
   @Max(31)
-  @ValidateIf(
-    (dto: ParseEventsDto) => {
-      // The validator was added for checking existing entered day
-      // 2024 was added as leap year
-      const date = new Date(2024, dto.month, 0);
-
-      return dto.day <= date.getDate();
-    },
-    {
-      message: 'day is not correct',
-    },
-  )
+  @MaxDayOfMonth({ message: 'Invalid day for the given month' })
   day: number;
 }

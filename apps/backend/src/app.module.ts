@@ -10,6 +10,10 @@ import { AuthService } from './shared/services/auth/auth.service';
 import { AuthController } from './controllers/auth/auth.controller';
 import { UserCollectionService } from './database/collections/user-collection/user-collection.service';
 import { JwtService } from '@nestjs/jwt';
+import { EventPicturesService } from './shared/services/event-pictures/event-pictures.service';
+import { EventPicturesCollectionService } from './database/collections/event-pictures/event-pictures.service';
+import { EventService } from './shared/services/event/event.service';
+import { EventCollectionService } from './database/collections/event-collection/event-collection.service';
 
 @Module({
   imports: [ConfigModule.forRoot(), DatabaseModule, UserModule],
@@ -20,6 +24,10 @@ import { JwtService } from '@nestjs/jwt';
     AuthService,
     UserCollectionService,
     JwtService,
+    EventPicturesService,
+    EventPicturesCollectionService,
+    EventService,
+    EventCollectionService,
   ],
 })
 export class AppModule {}
