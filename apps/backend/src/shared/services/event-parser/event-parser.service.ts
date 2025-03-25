@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import wiki from 'wikipedia';
 import { WikiEvent } from '../../models/wiki-event.model';
-import { map } from 'rxjs';
 
 @Injectable()
 export class EventParserService {

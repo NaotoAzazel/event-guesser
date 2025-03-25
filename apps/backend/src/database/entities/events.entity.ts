@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   Unique,
+  JoinTable,
 } from 'typeorm';
 import { GameEntity } from './games.entity';
 import { EventPictureEntity } from './event-picture.entity';
@@ -17,7 +18,10 @@ export class EventEntity {
   @Column('text')
   eventName: string;
 
-  @ManyToMany(() => EventPictureEntity, (picture) => picture.events)
+  @ManyToMany(() => EventPictureEntity, (picture) => picture.events, {
+    cascade: true,
+  })
+  @JoinTable()
   pictures: EventPictureEntity[];
 
   @ManyToMany(() => GameEntity, (game) => game.questions)

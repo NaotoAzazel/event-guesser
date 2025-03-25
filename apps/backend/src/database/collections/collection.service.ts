@@ -2,7 +2,9 @@ import { Inject, Injectable, Type } from '@nestjs/common';
 import { DATA_SOURCE } from '../../shared/constants/app.constants';
 import {
   DataSource,
+  FindOptionsRelations,
   FindOptionsWhere,
+  InsertResult,
   ObjectLiteral,
   Repository,
 } from 'typeorm';
@@ -21,10 +23,17 @@ export abstract class CollectionService<T extends ObjectLiteral> {
     );
   }
 
-  insert(dto: T): Promise<boolean> {
+  insert(dto: T | T[]): Promise<InsertResult | false> {
     return this.entityRepository
       .insert(dto)
-      .then(() => true)
+      .then((result) => result)
+      .catch(() => false);
+  }
+
+  save(dto: T): Promise<false | T> {
+    return this.entityRepository
+      .save(dto)
+      .then((result) => result)
       .catch(() => false);
   }
 
@@ -42,8 +51,11 @@ export abstract class CollectionService<T extends ObjectLiteral> {
       .catch(() => false);
   }
 
-  findOne(where: FindOptionsWhere<T>): Promise<T | null> {
-    return this.entityRepository.findOne({ where });
+  findOne(
+    where: FindOptionsWhere<T>,
+    relations?: FindOptionsRelations<T>,
+  ): Promise<T | null> {
+    return this.entityRepository.findOne({ where, relations: relations ?? {} });
   }
 
   findManyByOptions(
