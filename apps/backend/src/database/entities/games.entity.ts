@@ -1,8 +1,15 @@
 import { GameStatuses } from 'src/shared/enums/game-statuses.enum';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable,
+  OneToMany,
+} from 'typeorm';
 import { UserEntity } from './users.entity';
-import { EventEntity } from './events.entity';
 import { GameResultEntity } from './game-results.entity';
+import { QuestionEntity } from './question.entity';
 
 @Entity()
 export class GameEntity {
@@ -13,10 +20,11 @@ export class GameEntity {
   status: GameStatuses;
 
   @ManyToMany(() => UserEntity, (user) => user.games)
+  @JoinTable()
   players: UserEntity[];
 
-  @ManyToMany(() => EventEntity, (event) => event.games)
-  questions: EventEntity[];
+  @OneToMany(() => QuestionEntity, (question) => question.gameId)
+  questions: QuestionEntity[];
 
   @ManyToMany(() => GameResultEntity, (result) => result.game)
   results: GameResultEntity[];

@@ -14,10 +14,20 @@ import { EventPicturesService } from './shared/services/event-pictures/event-pic
 import { EventPicturesCollectionService } from './database/collections/event-pictures/event-pictures.service';
 import { EventService } from './shared/services/event/event.service';
 import { EventCollectionService } from './database/collections/event-collection/event-collection.service';
+import { GameController } from './controllers/game/game.controller';
+import { GameService } from './shared/services/game/game.service';
+import { GameCollectionService } from './database/collections/game-collection/game-collection.service';
+import { GameResultsCollectionService } from './database/collections/game-results-collection/game-results-collection.service';
+import { QuestionCollectionService } from './database/collections/question-collection/question-collection.service';
 
 @Module({
   imports: [ConfigModule.forRoot(), DatabaseModule, UserModule],
-  controllers: [AdminController, UserController, AuthController],
+  controllers: [
+    AdminController,
+    UserController,
+    AuthController,
+    GameController,
+  ],
   providers: [
     EventParserService,
     UserService,
@@ -28,6 +38,10 @@ import { EventCollectionService } from './database/collections/event-collection/
     EventPicturesCollectionService,
     EventService,
     EventCollectionService,
+    GameService,
+    GameCollectionService,
+    GameResultsCollectionService,
+    QuestionCollectionService,
   ],
 })
 export class AppModule {}

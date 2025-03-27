@@ -2,6 +2,7 @@ import { Inject, Injectable, Type } from '@nestjs/common';
 import { DATA_SOURCE } from '../../shared/constants/app.constants';
 import {
   DataSource,
+  FindManyOptions,
   FindOptionsRelations,
   FindOptionsWhere,
   InsertResult,
@@ -21,6 +22,13 @@ export abstract class CollectionService<T extends ObjectLiteral> {
     this.entityRepository = this.databaseProviders.getRepository(
       this.getRepositoryEntityTarget(),
     );
+  }
+
+  count(options?: FindManyOptions<T>) {
+    return this.entityRepository
+      .count(options)
+      .then((result) => result)
+      .catch(() => false);
   }
 
   insert(dto: T | T[]): Promise<InsertResult | false> {

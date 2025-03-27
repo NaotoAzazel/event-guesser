@@ -5,6 +5,7 @@ import { GameResultEntity } from './entities/game-results.entity';
 import { EventEntity } from './entities/events.entity';
 import { DATA_SOURCE } from 'src/shared/constants/app.constants';
 import { EventPictureEntity } from './entities/event-picture.entity';
+import { QuestionEntity } from './entities/question.entity';
 
 export const databaseProviders = [
   {
@@ -19,6 +20,7 @@ export const databaseProviders = [
           GameResultEntity,
           EventEntity,
           EventPictureEntity,
+          QuestionEntity,
         ],
         synchronize: true,
       });
