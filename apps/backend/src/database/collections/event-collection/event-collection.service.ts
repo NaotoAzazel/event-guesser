@@ -7,4 +7,12 @@ export class EventCollectionService extends CollectionService<EventEntity> {
   getRepositoryEntityTarget() {
     return EventEntity;
   }
+
+  async getRandomQuestions(limit: number): Promise<EventEntity[]> {
+    return this.entityRepository
+      .createQueryBuilder('entity')
+      .orderBy('RANDOM()')
+      .limit(limit)
+      .getMany();
+  }
 }
